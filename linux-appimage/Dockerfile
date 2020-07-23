@@ -32,8 +32,8 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     libzip-dev \
     libzstd-dev \
     zlib1g-dev \
-    python \
-    python-pip \
+    python3 \
+    python3-pip \
     python-setuptools \
     qtbase5-dev \
     qtbase5-private-dev \
@@ -46,7 +46,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     ccache \
     cmake \
     ninja-build && \
-    pip install conan 
+    pip3 install conan 
     
 RUN \
 	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCCVER} 10 && \
