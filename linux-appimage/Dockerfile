@@ -71,7 +71,7 @@ RUN \
 	make && make install && \
 	rm ../../libzip-${LIBZIPVER}.tar.gz 
 	
-RUN 	apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log
+RUN 	apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
 RUN mkdir -p /yuzu
 RUN chown yuzu /yuzu	
