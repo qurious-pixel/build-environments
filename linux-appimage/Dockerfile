@@ -57,9 +57,9 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
 RUN \
 	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCCVER} 10 && \
 	update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCCVER} 10 && \
-	ls -al /opt && \
-	ls -al / && \
-	find . -name "qt514-env.sh" -exec . qt514-env.sh {} \; && \
+	ls -al /opt/qt514/ && \
+	ls -al /opt/qt514/bin/ && \
+	find . -name "qt514-env.sh" -exec sh qt514-env.sh {} \; && \
 	. /opt/qt514/bin/qt514-env.sh && \
 	rm -rf /opt/qt514/examples /opt/qt514/doc && \
 	gcc --version && \
@@ -88,7 +88,7 @@ RUN \
 	tar -xf Vulkan-Headers*.tar.gz && \
 	cd Vulkan-Headers* && \
 	mkdir build && cd build && \
-	cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$CLANG_BINARY -DCMAKE_CXX_COMPILER=$CLANGXX_BINARY \
+	cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$GCC_BINARY -DCMAKE_CXX_COMPILER=$GXX_BINARY \
 	-DCMAKE_INSTALL_PREFIX=/usr && \
 	ninja && \
 	ninja install && \
@@ -100,7 +100,7 @@ RUN \
 	tar -xf Vulkan-Loader.tar.gz && \
 	cd Vulkan-Loader* && \
 	mkdir build && cd build && \
-	cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$CLANG_BINARY -DCMAKE_CXX_COMPILER=$CLANGXX_BINARY \
+	cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$GCC_BINARY -DCMAKE_CXX_COMPILER=$GXX_BINARY \
 	-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib -DCMAKE_INSTALL_SYSCONFDIR=/etc -DCMAKE_INSTALL_DATADIR=/share && \
 	ninja && \
 	ninja install && \
