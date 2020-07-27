@@ -59,9 +59,9 @@ RUN \
 	update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCCVER} 10 && \
 	ls -al /opt && \
 	ls -al / && \
-	find . -name "qt514-env.sh" -exec source qt514-env.sh && \
-	#source /opt/qt514/bin/qt514-env.sh && \
-	#rm -rf /opt/qt514/examples /opt/qt514/doc && \
+	find . -name "qt514-env.sh" -exec . qt514-env.sh {} \; && \
+	. /opt/qt514/bin/qt514-env.sh && \
+	rm -rf /opt/qt514/examples /opt/qt514/doc && \
 	gcc --version && \
 	g++ --version 
     
