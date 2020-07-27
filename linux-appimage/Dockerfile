@@ -37,12 +37,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     python \
     python-pip \
     python-setuptools \
-    qtbase5-dev \
-    qtbase5-private-dev \
-    qtdeclarative5-dev \
-    qttools5-dev \
-    qtwebengine5-dev \
-    libqt5opengl5-dev \
+    qt514-meta-minimal \
     libxi-dev \
     libavcodec-dev \
     libudev-dev \
@@ -56,14 +51,14 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     curl \
     git \
     ccache \
-    cmake \
     ninja-build && \
     pip install conan 
     
 RUN \
 	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCCVER} 10 && \
 	update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCCVER} 10 && \
-	. /opt/qt514/bin/qt514-env.sh && \
+	source /opt/qt514/bin/qt514-env.sh && \
+	rm -rf /opt/qt514/examples /opt/qt514/doc && \
 	gcc --version && \
 	g++ --version 
     
@@ -83,6 +78,32 @@ RUN \
 	cmake .. -DCMAKE_INSTALL_PREFIX=/usr && \
 	make && make install && \
 	rm ../../libzip-${LIBZIPVER}.tar.gz 
+
+ENV VULKANVER=1.2.148
+RUN \
+	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
+	tar -xf Vulkan-Headers*.tar.gz && \
+	cd Vulkan-Headers* && \
+	mkdir build && cd build && \
+	cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$CLANG_BINARY -DCMAKE_CXX_COMPILER=$CLANGXX_BINARY \
+	-DCMAKE_INSTALL_PREFIX=/usr && \
+	ninja && \
+	ninja install && \
+	cd ../.. && \
+	rm ./*.tar.gz && \
+	rm -r ./Vulkan-Headers*
+RUN \
+	curl -sL -o Vulkan-Loader.tar.gz https://github.com/KhronosGroup/Vulkan-Loader/archive/v${VULKANVER}.tar.gz && \
+	tar -xf Vulkan-Loader.tar.gz && \
+	cd Vulkan-Loader* && \
+	mkdir build && cd build && \
+	cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$CLANG_BINARY -DCMAKE_CXX_COMPILER=$CLANGXX_BINARY \
+	-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib -DCMAKE_INSTALL_SYSCONFDIR=/etc -DCMAKE_INSTALL_DATADIR=/share && \
+	ninja && \
+	ninja install && \
+	cd ../.. && \
+	rm ./*.tar.gz && \
+	rm -r ./Vulkan-Loader*
 	
 RUN 	apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
