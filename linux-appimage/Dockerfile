@@ -22,6 +22,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     build-essential \
     dpkg \
+    fuse \
     $GCC_BINARY $GXX_BINARY \
     libboost-all-dev \
     liblz4-dev \
@@ -117,5 +118,9 @@ WORKDIR /yuzu
 
 RUN conan install catch2/2.11.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install fmt/6.2.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install nlohmann_json/3.7.3@ -s compiler.libcxx=libstdc++11 --build=missing 
+    conan install nlohmann_json/3.7.3@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install boost/1.72.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install lz4/1.9.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install zlib/1.2.11@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install zstd/1.4.4@ -s compiler.libcxx=libstdc++11 --build=missing
 
