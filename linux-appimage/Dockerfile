@@ -85,6 +85,15 @@ RUN \
 	make && make install && \
 	rm ../../libzip-${LIBZIPVER}.tar.gz 
 
+ENV SDL2VER=2.0.12
+RUN \
+	curl -sLO https://libsdl.org/release/SDL2-${SDL2VER}.tar.gz && \
+	tar -xzf SDL2-${SDL2VER}.tar.gz && \
+	cd SDL2-${SDL2VER} && \
+	./configure —prefix=/usr && \
+	make && make install && \
+	rm ../SDL2-${SDL2VER}.tar.gz 
+
 ENV VULKANVER=1.2.148
 RUN \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
