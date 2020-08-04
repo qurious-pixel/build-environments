@@ -90,7 +90,7 @@ RUN \
 	curl -sLO https://libsdl.org/release/SDL2-${SDL2VER}.tar.gz && \
 	tar -xzf SDL2-${SDL2VER}.tar.gz && \
 	cd SDL2-${SDL2VER} && \
-	./configure —prefix=/usr && \
+	./configure --prefix=/usr && \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
