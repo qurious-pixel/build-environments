@@ -35,10 +35,12 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     libzstd-dev \
     zlib1g-dev \
     pulseaudio \
+    p7zip \
+    p7zip-full \
     python \
     python-pip \
     python-setuptools \
-    qt514-meta-minimal \
+    qt514-meta-full \
     libxi-dev \
     libavcodec-dev \
     libudev-dev \
@@ -116,11 +118,11 @@ RUN chown yuzu /yuzu
 USER 1027
 WORKDIR /yuzu
 
-RUN conan install catch2/2.11.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install fmt/6.2.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install nlohmann_json/3.7.3@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install boost/1.72.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
+RUN conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install fmt/7.0.1@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install nlohmann_json/3.8.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install boost/1.73.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install lz4/1.9.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install zlib/1.2.11@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install zstd/1.4.4@ -s compiler.libcxx=libstdc++11 --build=missing
+    conan install zstd/1.4.5@ -s compiler.libcxx=libstdc++11 --build=missing
 
