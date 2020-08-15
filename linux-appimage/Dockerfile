@@ -44,12 +44,14 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     libxi-dev \
     libavcodec-dev \
     libudev-dev \
+    libusb-1.0-0-dev \
     libevdev-dev \
     libc6-dev \
     libavformat-dev \
     libavdevice-dev \
     libfmt-dev \
     x11-utils \
+    zenity \
     wget \
     curl \
     git \
