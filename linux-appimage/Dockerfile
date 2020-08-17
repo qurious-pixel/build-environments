@@ -28,7 +28,6 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     libboost-all-dev \
     liblz4-dev \
     liblzma-dev \
-    #libsdl2-dev \
     libssl-dev \
     libopus-dev \
     libpthread-stubs0-dev \
@@ -53,6 +52,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     libfmt-dev \
     libwayland-dev \
     libxrandr-dev \
+    libglu1-mesa-dev \
     x11-utils \
     zenity \
     wget \
