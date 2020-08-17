@@ -18,6 +18,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     apt-get install -y curl software-properties-common apt-transport-https && \
     add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
     add-apt-repository -y ppa:beineri/opt-qt-${QTVER}-bionic && \
+    apt-mark hold libsdl2-2.0-0
     DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y full-upgrade && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     build-essential \
@@ -51,6 +52,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     libavdevice-dev \
     libfmt-dev \
     libwayland-dev \
+    libxrandr-dev \
     x11-utils \
     zenity \
     wget \
