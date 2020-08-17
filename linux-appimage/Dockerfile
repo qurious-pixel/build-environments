@@ -50,6 +50,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     libavformat-dev \
     libavdevice-dev \
     libfmt-dev \
+    libwayland-dev \
     x11-utils \
     zenity \
     wget \
@@ -70,7 +71,7 @@ RUN \
 	gcc --version && \
 	g++ --version 
     
-ENV CMAKEVER=3.18.0
+ENV CMAKEVER=3.18.1
 RUN \
 	curl -sLO https://cmake.org/files/v${CMAKEVER%.*}/cmake-${CMAKEVER}-Linux-x86_64.sh && \
 	sh cmake-${CMAKEVER}-Linux-x86_64.sh --prefix=/usr --skip-license && \
@@ -96,7 +97,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.148
+ENV VULKANVER=1.2.150
 RUN \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
 	tar -xf Vulkan-Headers*.tar.gz && \
