@@ -34,6 +34,8 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     libzip-dev \
     libzstd-dev \
     zlib1g-dev \
+    libasound2-dev \
+    libpulse-dev \
     pulseaudio \
     p7zip \
     p7zip-full \
