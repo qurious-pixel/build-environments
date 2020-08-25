@@ -131,7 +131,7 @@ RUN \
 	cd ../.. && \
 	rm ./*.tar.gz && \
 	rm -r ./Vulkan-Loader* && \
-	cd /tmp && \
+	cd /tmp
 	
 RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
