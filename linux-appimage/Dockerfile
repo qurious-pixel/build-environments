@@ -77,6 +77,7 @@ RUN \
     
 ENV CMAKEVER=3.18.1
 RUN \
+	cd /tmp && \
 	curl -sLO https://cmake.org/files/v${CMAKEVER%.*}/cmake-${CMAKEVER}-Linux-x86_64.sh && \
 	sh cmake-${CMAKEVER}-Linux-x86_64.sh --prefix=/usr --skip-license && \
 	rm ./cmake*.sh && \
@@ -84,6 +85,7 @@ RUN \
 
 ENV LIBZIPVER=1.7.3
 RUN \
+	cd /tmp && \
 	curl -sLO https://libzip.org/download/libzip-${LIBZIPVER}.tar.gz && \
 	tar -xzf libzip-${LIBZIPVER}.tar.gz && \
 	cd libzip-${LIBZIPVER} && \
@@ -94,6 +96,7 @@ RUN \
 
 ENV SDL2VER=2.0.12
 RUN \
+	cd /tmp && \
 	curl -sLO https://libsdl.org/release/SDL2-${SDL2VER}.tar.gz && \
 	tar -xzf SDL2-${SDL2VER}.tar.gz && \
 	cd SDL2-${SDL2VER} && \
@@ -103,9 +106,10 @@ RUN \
 
 ENV VULKANVER=1.2.150
 RUN \
+	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
 	tar -xf Vulkan-Headers*.tar.gz && \
-	cd Vulkan-Headers* && \
+	cd Vulkan-Headers*/ && \
 	mkdir build && cd build && \
 	cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$GCC_BINARY -DCMAKE_CXX_COMPILER=$GXX_BINARY \
 	-DCMAKE_INSTALL_PREFIX=/usr && \
@@ -115,9 +119,10 @@ RUN \
 	rm ./*.tar.gz && \
 	rm -r ./Vulkan-Headers*
 RUN \
+	cd /tmp && \
 	curl -sL -o Vulkan-Loader.tar.gz https://github.com/KhronosGroup/Vulkan-Loader/archive/v${VULKANVER}.tar.gz && \
 	tar -xf Vulkan-Loader.tar.gz && \
-	cd Vulkan-Loader* && \
+	cd Vulkan-Loader*/ && \
 	mkdir build && cd build && \
 	cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$GCC_BINARY -DCMAKE_CXX_COMPILER=$GXX_BINARY \
 	-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib -DCMAKE_INSTALL_SYSCONFDIR=/etc -DCMAKE_INSTALL_DATADIR=/share && \
@@ -125,7 +130,8 @@ RUN \
 	ninja install && \
 	cd ../.. && \
 	rm ./*.tar.gz && \
-	rm -r ./Vulkan-Loader*
+	rm -r ./Vulkan-Loader* && \
+	cd /tmp && \
 	
 RUN 	apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
