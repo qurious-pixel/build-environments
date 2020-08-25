@@ -133,7 +133,7 @@ RUN \
 	rm -r ./Vulkan-Loader* && \
 	cd /tmp && \
 	
-RUN 	apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
+RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
 RUN mkdir -p /yuzu
 RUN chown yuzu /yuzu	
