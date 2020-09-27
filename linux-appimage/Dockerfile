@@ -21,6 +21,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     apt-mark hold libsdl2-2.0-0 && \
     DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y full-upgrade && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+    aria2 \
     build-essential \
     dpkg \
     fuse \
@@ -75,7 +76,7 @@ RUN \
 	gcc --version && \
 	g++ --version 
     
-ENV CMAKEVER=3.18.1
+ENV CMAKEVER=3.18.3
 RUN \
 	cd /tmp && \
 	curl -sLO https://cmake.org/files/v${CMAKEVER%.*}/cmake-${CMAKEVER}-Linux-x86_64.sh && \
@@ -104,7 +105,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.150
+ENV VULKANVER=1.2.154
 RUN \
 	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
