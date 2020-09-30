@@ -46,6 +46,8 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     qt514-meta-full \
     libxi-dev \
     libavcodec-dev \
+    libavutil-dev \
+    libswscale-dev \
     libudev-dev \
     libusb-1.0-0-dev \
     libevdev-dev \
@@ -105,7 +107,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.154
+ENV VULKANVER=1.2.155
 RUN \
 	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
