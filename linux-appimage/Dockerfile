@@ -107,7 +107,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.155
+ENV VULKANVER=1.2.154
 RUN \
 	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
