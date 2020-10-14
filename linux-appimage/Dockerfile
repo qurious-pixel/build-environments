@@ -75,7 +75,7 @@ RUN \
 	ls -al /opt/qt$QTVERMIN/ && \
 	ls -al /opt/qt$QTVERMIN/bin/ && \
 	find . -name "qt$QTVERMIN-env.sh" -exec sh qt$QTVERMIN-env.sh {} \; && \
-	. /opt/qt$QTVERMIN/bin/qt$QTVERMINqt514-env.sh && \
+	. /opt/qt$QTVERMIN/bin/qt$QTVERMIN-env.sh && \
 	rm -rf /opt/qt$QTVERMIN/examples /opt/qt$QTVERMIN/doc && \
 	gcc --version && \
 	g++ --version 
