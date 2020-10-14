@@ -43,7 +43,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     python \
     python-pip \
     python-setuptools \
-    qt514-meta-full \
+    qt$QTVERMIN-meta-full \
     libxi-dev \
     libavcodec-dev \
     libavutil-dev \
