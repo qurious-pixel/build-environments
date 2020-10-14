@@ -41,9 +41,11 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     p7zip \
     p7zip-full \
     python \
-    python-pip \
+    python3-pip \
     python-setuptools \
-    qt$QTVERMIN-meta-full \
+    qt515base \
+    qt515tools \
+    qt515webengine \
     libxi-dev \
     libavcodec-dev \
     libavutil-dev \
@@ -65,7 +67,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     git \
     ccache \
     ninja-build && \
-    pip install conan 
+    pip3 install conan 
     
 RUN \
 	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCCVER} 10 && \
