@@ -29,7 +29,6 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     libboost-all-dev \
     liblz4-dev \
     liblzma-dev \
-    libmbedtls-dev \
     libssl-dev \
     libopus-dev \
     libpthread-stubs0-dev \
@@ -145,7 +144,8 @@ USER 1027
 WORKDIR /yuzu
 
 RUN conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install fmt/7.0.3@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install fmt/7.1.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install mbedtls/2.23.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install nlohmann_json/3.8.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install boost/1.73.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install lz4/1.9.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
