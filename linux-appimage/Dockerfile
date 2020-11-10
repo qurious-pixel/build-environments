@@ -107,7 +107,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.154
+ENV VULKANVER=1.2.159
 RUN \
 	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
@@ -144,7 +144,7 @@ USER 1027
 WORKDIR /yuzu
 
 RUN conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install fmt/7.1.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install fmt/7.1.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install mbedtls/2.23.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install nlohmann_json/3.8.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install boost/1.73.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
