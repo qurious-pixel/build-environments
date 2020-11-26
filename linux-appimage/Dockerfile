@@ -116,8 +116,7 @@ RUN \
 	tar -xf Vulkan-Headers*.tar.gz && \
 	cd Vulkan-Headers*/ && \
 	mkdir build && cd build && \
-	cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$GCC_BINARY -DCMAKE_CXX_COMPILER=$GXX_BINARY \
-	-DCMAKE_INSTALL_PREFIX=/usr && \
+	cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$GCC_BINARY -DCMAKE_CXX_COMPILER=$GXX_BINARY -DCMAKE_INSTALL_PREFIX=/usr && \
 	ninja && \
 	ninja install && \
 	cd ../.. && \
@@ -135,7 +134,7 @@ RUN \
 	ninja install && \
 	cd ../.. && \
 	rm ./*.tar.gz && \
-	rm -r ./Vulkan-Loader* && \
+	rm -r ./Vulkan-Loader* 
 	
 RUN \
 	cd /tmp && \
