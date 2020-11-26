@@ -25,8 +25,8 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     build-essential \
     dpkg \
     fuse \
-    glslang-dev \
-    glslang-tools \
+    #glslang-dev \
+    #glslang-tools \
     $GCC_BINARY $GXX_BINARY \
     libboost-all-dev \
     liblz4-dev \
@@ -136,6 +136,15 @@ RUN \
 	cd ../.. && \
 	rm ./*.tar.gz && \
 	rm -r ./Vulkan-Loader* && \
+	
+RUN \
+	cd /tmp && \
+	git clone https://github.com/KhronosGroup/glslang.git && \
+	cd glslang && \
+	mkdir -p build && cd build && \
+	cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="/usr" && \
+	ninja && ninja install && \
+	glslangValidator --version && \
 	cd /tmp
 	
 RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
