@@ -25,6 +25,8 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     build-essential \
     dpkg \
     fuse \
+    glslang-dev \
+    glslang-tools \
     $GCC_BINARY $GXX_BINARY \
     libboost-all-dev \
     liblz4-dev \
@@ -78,7 +80,7 @@ RUN \
 	gcc --version && \
 	g++ --version 
     
-ENV CMAKEVER=3.18.3
+ENV CMAKEVER=3.19.1
 RUN \
 	cd /tmp && \
 	curl -sLO https://cmake.org/files/v${CMAKEVER%.*}/cmake-${CMAKEVER}-Linux-x86_64.sh && \
@@ -107,7 +109,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.159
+ENV VULKANVER=1.2.162
 RUN \
 	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
