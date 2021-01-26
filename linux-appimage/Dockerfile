@@ -5,6 +5,7 @@ ENV QTVER=5.14.2
 ENV QTVERMIN=514
 ENV LLVMVER=10
 ENV GCCVER=10
+ENV UBUNTU_VER=bionic
 
 ENV CLANG_BINARY=clang-${LLVMVER}
 ENV CLANGXX_BINARY=clang++-${LLVMVER}
@@ -17,7 +18,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     apt-get update -y && \
     apt-get install -y curl software-properties-common apt-transport-https && \
     add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
-    add-apt-repository -y ppa:beineri/opt-qt-${QTVER}-bionic && \
+    add-apt-repository -y ppa:beineri/opt-qt-${QTVER}-${UBUNTU_VER} && \
     add-apt-repository -y ppa:jonathonf/ffmpeg-4 && \
     apt-mark hold libsdl2-2.0-0 && \
     DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y full-upgrade && \
@@ -100,7 +101,7 @@ RUN \
 	make && make install && \
 	rm ../../libzip-${LIBZIPVER}.tar.gz 
 
-ENV SDL2VER=2.0.12
+ENV SDL2VER=2.0.14
 RUN \
 	cd /tmp && \
 	curl -sLO https://libsdl.org/release/SDL2-${SDL2VER}.tar.gz && \
@@ -110,7 +111,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.162
+ENV VULKANVER=1.2.166
 RUN \
 	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
