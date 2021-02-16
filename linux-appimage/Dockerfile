@@ -82,7 +82,7 @@ RUN \
 	gcc --version && \
 	g++ --version 
     
-ENV CMAKEVER=3.19.1
+ENV CMAKEVER=3.20.0
 RUN \
 	cd /tmp && \
 	curl -sLO https://cmake.org/files/v${CMAKEVER%.*}/cmake-${CMAKEVER}-Linux-x86_64.sh && \
@@ -111,7 +111,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.166
+ENV VULKANVER=1.2.170
 RUN \
 	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
@@ -162,5 +162,5 @@ RUN conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing 
     conan install boost/1.73.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install lz4/1.9.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install zlib/1.2.11@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install zstd/1.4.5@ -s compiler.libcxx=libstdc++11 --build=missing
+    conan install zstd/1.4.8@ -s compiler.libcxx=libstdc++11 --build=missing
 
