@@ -82,7 +82,7 @@ RUN \
 	gcc --version && \
 	g++ --version 
     
-ENV CMAKEVER=3.20.0
+ENV CMAKEVER=3.19.5
 RUN \
 	cd /tmp && \
 	curl -sLO https://cmake.org/files/v${CMAKEVER%.*}/cmake-${CMAKEVER}-Linux-x86_64.sh && \
