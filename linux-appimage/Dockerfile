@@ -159,7 +159,7 @@ RUN conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing 
     conan install fmt/7.1.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install mbedtls/2.23.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install nlohmann_json/3.8.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install boost/1.73.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install boost/1.75.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install lz4/1.9.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install zlib/1.2.11@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install zstd/1.4.8@ -s compiler.libcxx=libstdc++11 --build=missing
