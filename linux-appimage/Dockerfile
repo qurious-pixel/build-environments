@@ -111,7 +111,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.170
+ENV VULKANVER=1.2.177
 RUN \
 	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
@@ -147,6 +147,14 @@ RUN \
 	ninja && ninja install && \
 	glslangValidator --version && \
 	cd /tmp
+
+RUN \
+        cd /tmp && \
+        wget https://github.com/yuzu-emu/ext-linux-bin/raw/main/boost/boost_1_75_0.tar.xz &&\
+        tar xvf boost_1_75_0.tar.xz && \
+        chown -R root:root boost_1_75_0/ && \
+        cp -rv boost_1_75_0/include boost_1_75_0/lib /usr && \
+        rm -rf boost*
 	
 RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
@@ -159,7 +167,6 @@ RUN conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing 
     conan install fmt/7.1.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install mbedtls/2.23.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install nlohmann_json/3.8.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install boost/1.75.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install lz4/1.9.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install zlib/1.2.11@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install zstd/1.4.8@ -s compiler.libcxx=libstdc++11 --build=missing
