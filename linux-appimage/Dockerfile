@@ -87,8 +87,8 @@ RUN \
 ENV CMAKEVER=3.20.3
 RUN \
 	cd /tmp && \
-	curl -sLO https://cmake.org/files/v${CMAKEVER%.*}/cmake-${CMAKEVER}-Linux-x86_64.sh && \
-	sh cmake-${CMAKEVER}-Linux-x86_64.sh --prefix=/usr --skip-license && \
+	curl -sLO https://cmake.org/files/v${CMAKEVER%.*}/cmake-${CMAKEVER}-linux-x86_64.sh && \
+	sh cmake-${CMAKEVER}-linux-x86_64.sh --prefix=/usr --skip-license && \
 	rm ./cmake*.sh && \
 	cmake --version
 
