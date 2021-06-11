@@ -24,6 +24,8 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y full-upgrade && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     aria2 \
+    autoconf \
+    automake \
     build-essential \
     dpkg \
     fuse \
@@ -82,7 +84,7 @@ RUN \
 	gcc --version && \
 	g++ --version 
     
-ENV CMAKEVER=3.19.5
+ENV CMAKEVER=3.20.3
 RUN \
 	cd /tmp && \
 	curl -sLO https://cmake.org/files/v${CMAKEVER%.*}/cmake-${CMAKEVER}-Linux-x86_64.sh && \
@@ -111,7 +113,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.177
+ENV VULKANVER=1.2.180
 RUN \
 	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
@@ -156,6 +158,16 @@ RUN \
         cp -rv boost_1_75_0/include boost_1_75_0/lib /usr && \
         rm -rf boost*
 	
+ENV LIBUSBVER=1.0.24
+RUN \
+	cd /tmp && \
+	curl -sLO https://github.com/libusb/libusb/releases/download/v${LIBUSBVER}/libusb-${LIBUSBVER}.tar.bz2 && \
+	tar -xvf libusb-${LIBUSBVER}.tar.bz2 && \
+	cd libusb-${LIBUSBVER} && \
+	./configure --prefix=/usr && \
+	make && make install && \
+	rm ../libusb-${LIBUSBVER}.tar.bz2	
+	
 RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
 RUN mkdir -p /yuzu
@@ -169,5 +181,5 @@ RUN conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing 
     conan install nlohmann_json/3.8.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install lz4/1.9.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install zlib/1.2.11@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install zstd/1.4.8@ -s compiler.libcxx=libstdc++11 --build=missing
+    conan install zstd/1.5.0@ -s compiler.libcxx=libstdc++11 --build=missing
 
