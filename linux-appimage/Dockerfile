@@ -175,7 +175,8 @@ RUN chown yuzu /yuzu
 USER 1027
 WORKDIR /yuzu
 
-RUN conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
+RUN conan remove zlib/* --builds --force && \
+    conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install fmt/7.1.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install mbedtls/2.23.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install nlohmann_json/3.8.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
