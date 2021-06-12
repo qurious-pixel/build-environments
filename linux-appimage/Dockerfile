@@ -46,9 +46,9 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     pulseaudio \
     p7zip \
     p7zip-full \
-    python \
-    python-pip \
-    python-setuptools \
+    python3 \
+    python3-pip \
+    python3-setuptools \
     qt514-meta-full \
     libxi-dev \
     libavcodec-dev \
@@ -71,7 +71,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     git \
     ccache \
     ninja-build && \
-    pip install conan 
+    pip3 install conan 
     
 RUN \
 	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCCVER} 10 && \
@@ -175,7 +175,7 @@ RUN chown yuzu /yuzu
 USER 1027
 WORKDIR /yuzu
 
-RUN conan install zlib/1.2.11@kent_at_multiscale/stable -s compiler.libcxx=libstdc++11 --build=missing && \
+RUN conan install zlib/1.2.11@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install fmt/7.1.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install mbedtls/2.23.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
