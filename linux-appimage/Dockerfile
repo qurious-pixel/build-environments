@@ -26,6 +26,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     aria2 \
     autoconf \
     automake \
+    autotools-dev \
     build-essential \
     dpkg \
     fuse \
@@ -33,6 +34,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     #glslang-tools \
     $GCC_BINARY $GXX_BINARY \
     libboost-all-dev \
+    libtool \
     liblz4-dev \
     liblzma-dev \
     libssl-dev \
@@ -166,7 +168,18 @@ RUN \
 	cd libusb-${LIBUSBVER} && \
 	./configure --prefix=/usr && \
 	make && make install && \
-	rm ../libusb-${LIBUSBVER}.tar.bz2	
+	rm ../libusb-${LIBUSBVER}.tar.bz2
+
+ENV HIDAPIVER=0.10.1
+RUN \
+	cd /tmp && \
+	curl -sLO https://github.com/libusb/hidapi/archive/refs/tags/hidapi-${HIDAPIVER}.tar.gz && \
+	tar -xvf hidapi-${HIDAPIVER}.tar.gz && \
+	cd hidapi-hidapi-${HIDAPIVER} && \
+	./bootstrap
+	./configure --prefix=/usr && \
+	make && make install && \
+	rm ../hidapi-${HIDAPIVER}.tar.gz
 	
 RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
