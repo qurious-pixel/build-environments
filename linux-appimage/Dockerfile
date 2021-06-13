@@ -176,7 +176,7 @@ RUN \
 	curl -sLO https://github.com/libusb/hidapi/archive/refs/tags/hidapi-${HIDAPIVER}.tar.gz && \
 	tar -xvf hidapi-${HIDAPIVER}.tar.gz && \
 	cd hidapi-hidapi-${HIDAPIVER} && \
-	./bootstrap
+	./bootstrap && \
 	./configure --prefix=/usr && \
 	make && make install && \
 	rm ../hidapi-${HIDAPIVER}.tar.gz
