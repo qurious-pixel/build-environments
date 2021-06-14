@@ -166,7 +166,7 @@ RUN \
 	curl -sLO https://github.com/libusb/libusb/releases/download/v${LIBUSBVER}/libusb-${LIBUSBVER}.tar.bz2 && \
 	tar -xvf libusb-${LIBUSBVER}.tar.bz2 && \
 	cd libusb-${LIBUSBVER} && \
-	./configure --prefix=/usr && \
+	./configure && \
 	make && make install && \
 	rm ../libusb-${LIBUSBVER}.tar.bz2
 
