@@ -52,6 +52,7 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     qt${QTVERMIN}declarative \
     qt${QTVERMIN}xmlpatterns \
     qt${QTVERMIN}svg \
+    qt${QTVERMIN}tools \
     qt${QTVERMIN}wayland \
     qt${QTVERMIN}webengine \
     libxi-dev \
@@ -185,18 +186,9 @@ RUN \
 	
 RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
-RUN mkdir -p /yuzu
-RUN chown yuzu /yuzu	
-USER 1027
-WORKDIR /yuzu
-
-RUN conan install zlib/1.2.11@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install fmt/8.0.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install mbedtls/2.23.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install nlohmann_json/3.8.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install lz4/1.9.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install zstd/1.5.0@ -s compiler.libcxx=libstdc++11 --build=missing #
+# Setup paths for Qt binaries
+ENV LD_LIBRARY_PATH=/opt/qt${QTVERMIN}/lib:${LD_LIBRARY_PATH}
+ENV PATH=/opt/qt${QTVERMIN}/bin:${PATH}
 
 # Need to patch Qt for compatibility with GCC 11
 # See https://codereview.qt-project.org/c/qt/qtbase/+/339417
