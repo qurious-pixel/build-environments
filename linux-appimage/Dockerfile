@@ -1,5 +1,6 @@
 FROM ubuntu:18.04
 MAINTAINER quriouspixel
+WORKDIR /yuzu
 
 ENV QTVER=5.15.2
 ENV QTVERMIN=515
