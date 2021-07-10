@@ -1,10 +1,10 @@
 FROM ubuntu:18.04
 MAINTAINER quriouspixel
 
-ENV QTVER=5.14.2
-ENV QTVERMIN=514
+ENV QTVER=5.15.2
+ENV QTVERMIN=515
 ENV LLVMVER=10
-ENV GCCVER=10
+ENV GCCVER=11
 ENV UBUNTU_VER=bionic
 
 ENV CLANG_BINARY=clang-${LLVMVER}
@@ -30,8 +30,6 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     build-essential \
     dpkg \
     fuse \
-    #glslang-dev \
-    #glslang-tools \
     $GCC_BINARY $GXX_BINARY \
     libboost-all-dev \
     libtool \
@@ -40,7 +38,6 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     libssl-dev \
     libopus-dev \
     libpthread-stubs0-dev \
-    #libzip-dev \
     libzstd-dev \
     zlib1g-dev \
     libasound2-dev \
@@ -51,7 +48,12 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
     python3 \
     python3-pip \
     python3-setuptools \
-    qt514-meta-full \
+    qt${QTVERMIN}base \
+    qt${QTVERMIN}declarative \
+    qt${QTVERMIN}xmlpatterns \
+    qt${QTVERMIN}svg \
+    qt${QTVERMIN}wayland \
+    qt${QTVERMIN}webengine \
     libxi-dev \
     libavcodec-dev \
     libavutil-dev \
@@ -78,11 +80,11 @@ RUN useradd -m -u 1027 -s /bin/bash yuzu && \
 RUN \
 	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCCVER} 10 && \
 	update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCCVER} 10 && \
-	ls -al /opt/qt514/ && \
-	ls -al /opt/qt514/bin/ && \
-	find . -name "qt514-env.sh" -exec sh qt514-env.sh {} \; && \
-	. /opt/qt514/bin/qt514-env.sh && \
-	rm -rf /opt/qt514/examples /opt/qt514/doc && \
+	ls -al /opt/qt${QTVERMIN}/ && \
+	ls -al /opt/qt${QTVERMIN}/bin/ && \
+	find . -name "qt${QTVERMIN}-env.sh" -exec sh qt${QTVERMIN}-env.sh {} \; && \
+	. /opt/qt${QTVERMIN}/bin/qt${QTVERMIN}-env.sh && \
+	rm -rf /opt/qt${QTVERMIN}/examples /opt/qt${QTVERMIN}/doc && \
 	gcc --version && \
 	g++ --version 
     
@@ -115,7 +117,7 @@ RUN \
 	make && make install && \
 	rm ../SDL2-${SDL2VER}.tar.gz 
 
-ENV VULKANVER=1.2.180
+ENV VULKANVER=1.2.184
 RUN \
 	cd /tmp && \
 	curl -sL -o Vulkan-Headers.tar.gz https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VULKANVER}.tar.gz && \
@@ -190,9 +192,14 @@ WORKDIR /yuzu
 
 RUN conan install zlib/1.2.11@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install catch2/2.13.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
-    conan install fmt/7.1.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
+    conan install fmt/8.0.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install mbedtls/2.23.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install nlohmann_json/3.8.0@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install lz4/1.9.2@ -s compiler.libcxx=libstdc++11 --build=missing && \
     conan install zstd/1.5.0@ -s compiler.libcxx=libstdc++11 --build=missing #
 
+# Need to patch Qt for compatibility with GCC 11
+# See https://codereview.qt-project.org/c/qt/qtbase/+/339417
+RUN \
+	sed -i 's/ThreadEngineStarter<void>(ThreadEngine<void> \*_threadEngine)/ThreadEngineStarter(ThreadEngine<void> \*_threadEngine)/' \
+	/opt/qt515/include/QtConcurrent/qtconcurrentthreadengine.h
